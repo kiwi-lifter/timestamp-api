@@ -18,28 +18,25 @@ app.get("/", (req,res) => {
 app.get('/:query', (req, res) => {
   
   var query = req.params.query
-  var output = {}
-  var time;
+    ,output = {}
+    ,time;
+  
   if (isNaN(Number(query))) { //if not timestamp
     if (new Date(query) !== 'Invalid Date') { //if valid date
-      time = new Date(query)
+      time = new Date(query);
     } else {
-      time = null
+      time = null;
     }
   } else { //if timestamp
-    console.log(Number(query))
-    time = new Date(Number(query) * 1000)
+    time = new Date(Number(query) * 1000);
   }
 
-  if (time === null) {
-    output = { 'unix': null, 'natural': null }
-  } else {
-    output = { 'unix': time.getTime() / 1000, 'natural': strftime('%B %d, %Y', time) }
-  }
-  console.log(output)
-  res.send(JSON.stringify(output))
+  time === null ? output = { 'unix': null, 'natural': null } : output = { 'unix': time.getTime() / 1000, 'natural': strftime('%B %d, %Y', time) } ;
+
+  console.log(output);
+  res.send(JSON.stringify(output));
     
-  });
+});
  
 app.listen(process.env.PORT || 8080, function () {
   console.log('Example app listening on port 8080!');
