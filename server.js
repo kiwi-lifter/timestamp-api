@@ -1,43 +1,47 @@
+/** 
+  * @desc this app uses a url parameter date value to output the date formatted as unix code and natural language.
+  * @author Garrick McCaskill kiwilifter808@gmail.com
+  * @required express, strftime
+**/
+
 var express = require('express')
-var strftime = require('strftime')
-var app = express()
-var port = process.env.PORT || 8080
+  ,strftime = require('strftime')
+  ,app = express();
 
+app.get("/", (req,res) => {
+  
+  res.send( "<h1>API Basejump: Timestamp microservice</h1><p>For more information visit this <a href='https://timestamp-ms.herokuapp.com/'>link</a></P>");
+  
+});
 
-app.get('/', function (req, res) {
-  res.sendFile('index.html', {root: __dirname}, function(err) {
-    if (err) {
-      console.log(err)
-      res.send("There was some error :(")
-      res.status(err.status).end()
-    }
-  })
-})
-
-app.get('/:query', function (req, res) {
+/**
+ * @desc  a string as a parameter, passed through the url, is checked to see whether that string contains either a
+ * unix timestamp or a natural language date (example: January 1, 2016).
+ * @param {string}
+ * @returns {string} the Unix timestamp and the natural language form of the date passed in or null
+ **/
+app.get('/:query', (req, res) => {
+  
   var query = req.params.query
-  var output = {}
-  var time;
+    ,output = {}
+    ,time;
+  
   if (isNaN(Number(query))) { //if not timestamp
     if (new Date(query) !== 'Invalid Date') { //if valid date
-      time = new Date(query)
+      time = new Date(query);
     } else {
-      time = null
+      time = null;
     }
   } else { //if timestamp
-    console.log(Number(query))
-    time = new Date(Number(query) * 1000)
+    time = new Date(Number(query) * 1000);
   }
 
-  if (time === null) {
-    output = { 'unix': null, 'natural': null }
-  } else {
-    output = { 'unix': time.getTime() / 1000, 'natural': strftime('%B %d, %Y', time) }
-  }
-  console.log(output)
-  res.send(JSON.stringify(output))
-})
+  time === null ? output = { 'unix': null, 'natural': null } : output = { 'unix': time.getTime() / 1000, 'natural': strftime('%B %d, %Y', time) } ;
 
-app.listen(port, function () {
-
-})
+  res.send(JSON.stringify(output));
+    
+});
+ 
+app.listen(process.env.PORT || 8080, function () {
+  console.log('Example app listening on port 8080!');
+});
