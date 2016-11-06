@@ -9,9 +9,13 @@ var express = require('express')
   ,app = express();
 
 app.get("/", (req,res) => {
-  
-  res.send( "<h1>API Basejump: Timestamp microservice</h1><p>For more information visit this <a href='https://timestamp-ms.herokuapp.com/'>link</a></P>");
-  
+  res.sendFile('index.html', {root: __dirname}, function(err) {
+    if (err) {
+      console.log(err);
+      res.send("Sorry app not working. :(");
+      res.status(err.status).end();
+    }
+  });
 });
 
 /**
