@@ -7,18 +7,16 @@
     <body>
         <div class="container">
             <h1 class="header">
-                API Basejump: Timestamp microservice
+                API Timestamp microservice
             </h1>
-            <blockquote>
-                User stories:
-                <ul>1) I can pass a string as a parameter, and it will check to see whether that string
-                contains either a unix timestamp or a natural language date (example: January 1, 2016)</ul>
-                <ul>2) If it does, it returns both the Unix timestamp and the natural language form of that date.</ul>
-                <ul>3) If it does not contain a date or Unix timestamp, it returns null for those properties.</ul>
-            </blockquote>
+            
+            <h3>Instructions</h3>
+            
+            <p>Enter a natural formatted date or a unix code date in the url and both the natural and unix code for that date will be returned.</p>
+            
             <h3>Example usage:</h3>
-            <code>https://exconf-timestamp.herokuapp.com/December%2015,%202015</code><br>
-            <code>https://exconf-timestamp.herokuapp.com/1450137600</code>
+            <code>https://kiwilifter-timestamp-api.herokuapp.com/December%2015,%202015</code><br>
+            <code>https://kiwilifter-timestamp-api.herokuapp.com/1450137600</code>
             <h3>Example output:</h3>
             <code>
                 {
